@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable-v24/btn_login.xml" value="0.27685185185185185" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable-v24/edit_text_red_cursor.xml" value="0.27685185185185185" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable-v24/splash_bg.xml" value="0.2796296296296296" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/bg_red.xml" value="0.3046153846153846" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/bg_white.xml" value="0.3046153846153846" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/blood_btn.xml" value="0.3046153846153846" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/counter.xml" value="0.30277777777777776" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/hospital_availability.xml" value="0.3046153846153846" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/ic_profile.xml" value="0.3046153846153846" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/navigate_btn.xml" value="0.3046153846153846" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/signup_card.xml" value="0.27685185185185185" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/tab_back.xml" value="0.2814814814814815" />
+        <entry key="..\:/BloodDonar/app/src/main/res/drawable/toolbar.xml" value="0.3046153846153846" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/acceptor_recycler.xml" value="0.25" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_acceptor_home.xml" value="0.28940217391304346" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_admin.xml" value="0.26811594202898553" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_admin_login.xml" value="0.26811594202898553" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_donar_home.xml" value="0.29322916666666665" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_donar_profile.xml" value="0.2930253623188406" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_forgot_password.xml" value="0.27219202898550726" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_hospital_availability.xml" value="0.28804347826086957" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_hospital_home.xml" value="0.25" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_landing.xml" value="0.29322916666666665" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_login2.xml" value="0.29322916666666665" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_main.xml" value="0.25769927536231885" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_required_blood.xml" value="0.28940217391304346" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_signup.xml" value="0.26222826086956524" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_signup2.xml" value="0.29322916666666665" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_stock_management.xml" value="0.2" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/add_acceptor.xml" value="0.26811594202898553" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/add_donor.xml" value="0.26811594202898553" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/admin_hospital.xml" value="0.26811594202898553" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/dialog_loader.xml" value="0.29322916666666665" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/donors_recycler.xml" value="0.28940217391304346" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/hospital_availability.xml" value="0.28940217391304346" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/hospital_recycler.xml" value="0.2930253623188406" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/signup2.xml" value="0.29322916666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

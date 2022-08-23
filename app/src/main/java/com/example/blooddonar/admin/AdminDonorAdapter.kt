@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.blooddonar.R
 import com.example.blooddonar.constants.acceptors
+import com.example.blooddonar.constants.users
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.add_donor.view.*
 import java.util.concurrent.TimeUnit
@@ -30,11 +31,11 @@ class AdminDonorAdapter(
         )
     }
 
-    override fun getItemCount(): Int = acceptors.size
+    override fun getItemCount(): Int = users.size
 
     @SuppressLint("CheckResult")
     override fun onBindViewHolder(holder: AdminDonorAdapter, position: Int) {
-        val item = acceptors[position]
+        val item = users[position]
 
         holder.itemView.apply {
             val circularProgressDrawable = CircularProgressDrawable(context)

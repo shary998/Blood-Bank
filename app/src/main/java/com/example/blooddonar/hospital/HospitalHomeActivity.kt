@@ -281,7 +281,6 @@ class HospitalHomeActivity : BaseActivity(), DonorAdapter.OnDonarClick,
         tab_layout.addTab(tab_layout.newTab().setText("Required"))
     }
 
-
     override fun onMessageClick(position: Int) {
         val phoneNumber = "123456789"
 

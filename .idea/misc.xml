@@ -19,7 +19,9 @@
         <entry key="..\:/BloodDonar/app/src/main/res/layout/acceptor_recycler.xml" value="0.25" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_acceptor_home.xml" value="0.28940217391304346" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_admin.xml" value="0.26811594202898553" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_admin_add_users.xml" value="0.26358695652173914" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_admin_login.xml" value="0.26811594202898553" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_admin_user_update.xml" value="0.26358695652173914" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_donar_home.xml" value="0.29322916666666665" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_donar_profile.xml" value="0.2930253623188406" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_forgot_password.xml" value="0.27219202898550726" />
@@ -33,6 +35,7 @@
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_signup.xml" value="0.26222826086956524" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_signup2.xml" value="0.29322916666666665" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_stock_management.xml" value="0.2" />
+        <entry key="..\:/BloodDonar/app/src/main/res/layout/activity_update_hospital.xml" value="0.26358695652173914" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/add_acceptor.xml" value="0.26811594202898553" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/add_donor.xml" value="0.26811594202898553" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/admin_hospital.xml" value="0.26811594202898553" />

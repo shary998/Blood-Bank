@@ -1,12 +1,9 @@
-package com.example.blooddonar.start
+package com.example.blooddonar.admin
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.util.Patterns
 import android.view.View
@@ -14,49 +11,60 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.blooddonar.R
-import com.example.blooddonar.acceptor.AcceptorHomeActivity
 import com.example.blooddonar.base.BaseActivity
-import com.example.blooddonar.donar.DonarHomeActivity
-import com.example.blooddonar.hospital.HospitalHomeActivity
-import com.example.blooddonar.sharedpref.MySharedPreference
-import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
 import com.jakewharton.rxbinding2.view.RxView
 import com.skydoves.powermenu.PowerMenuItem
-import kotlinx.android.synthetic.main.activity_signup2.*
-import kotlinx.android.synthetic.main.activity_signup2.cont_blood
-import kotlinx.android.synthetic.main.activity_signup2.cont_gender
-import kotlinx.android.synthetic.main.activity_signup2.et_blood
-import kotlinx.android.synthetic.main.activity_signup2.et_gender
-import java.io.InputStream
+import kotlinx.android.synthetic.main.activity_admin_add_users.*
+import kotlinx.android.synthetic.main.activity_admin_add_users.cont_blood
+import kotlinx.android.synthetic.main.activity_admin_add_users.cont_gender
+import kotlinx.android.synthetic.main.activity_admin_add_users.cont_hos_type
+import kotlinx.android.synthetic.main.activity_admin_add_users.cont_type
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_address
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_blood
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_city
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_confirm_password
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_create_password
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_dd
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_email
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_first_name
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_gender
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_hos_type
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_last_name
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_mm
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_phone_number
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_type
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_yyyy
+import kotlinx.android.synthetic.main.activity_admin_add_users.hospital
+import kotlinx.android.synthetic.main.activity_admin_add_users.login_submit_button
+import kotlinx.android.synthetic.main.activity_admin_add_users.user
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import com.example.blooddonar.hospital.HospitalHomeActivity
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_confirm_pass
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_hospital_address
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_hospital_city
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_hospital_email
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_hospital_password
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_name
+import kotlinx.android.synthetic.main.activity_admin_add_users.et_number
 
-class Signup2Activity : BaseActivity() {
 
+class AdminAddUsersActivity : BaseActivity() {
 
     private var gender = ""
     private var bloodGroup = ""
     private var userType = ""
     private var hospitalType = ""
-    private var isPictureUploaded = false
-    private var shouldLoadDataFromApi = true
     private lateinit var auth: FirebaseAuth
-    private var isImageUploaded = true
-    var profImageLink = ""
-    private lateinit var storageRef: StorageReference
     lateinit var database: FirebaseDatabase
     lateinit var databaseReference: DatabaseReference
-    var userUid = Firebase.auth.currentUser?.uid
-    private var profileImage: InputStream? = null
+    var type = "0"
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,17 +76,18 @@ class Signup2Activity : BaseActivity() {
         window.statusBarColor = getColor(R.color.transparent)
         window.navigationBarColor = getColor(R.color.black)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup2)
+        setContentView(R.layout.activity_admin_add_users)
 
+        type = intent?.extras?.getString("type") ?: "0"
 
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance()
         databaseReference = database.reference
-        storageRef = Firebase.storage.reference
 
-        initTabLayout()
-        initListeners()
-
+        getType {
+            pBar(0)
+            initListeners()
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -101,45 +110,6 @@ class Signup2Activity : BaseActivity() {
                     gender = "male"
                 } else if (selectedText == "Female") {
                     gender = "female"
-                }
-            }
-        }
-
-        RxView.clicks(cont_type).throttleFirst(2, TimeUnit.SECONDS).subscribe {
-            popupDisplay(
-                this,
-                cont_type,
-                et_type,
-                false,
-                arrayListOf(
-                    PowerMenuItem("Acceptor"),
-                    PowerMenuItem("Donor"),
-                ),
-                POPUPDISPLAY_MATCHCONT,
-                0
-            ) { selectedText ->
-                if (selectedText == "Acceptor") {
-                    userType = "Acceptor"
-                } else if (selectedText == "Donor") {
-                    userType = "Donor"
-                }
-            }
-        }
-
-        RxView.clicks(cont_hos_type).throttleFirst(2, TimeUnit.SECONDS).subscribe {
-            popupDisplay(
-                this,
-                cont_hos_type,
-                et_hos_type,
-                false,
-                arrayListOf(
-                    PowerMenuItem("Hospital"),
-                ),
-                POPUPDISPLAY_MATCHCONT,
-                0
-            ) { selectedText ->
-                if (selectedText == "Hospital") {
-                    hospitalType = "Hospital"
                 }
             }
         }
@@ -184,45 +154,12 @@ class Signup2Activity : BaseActivity() {
             }
         }
 
-        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab?.position ?: 0 == 0) {
-                    user.visibility = View.VISIBLE
-                    hospital.visibility = View.GONE
-                } else {
-                    hospital.visibility = View.VISIBLE
-                    user.visibility = View.GONE
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
-        })
-
-        RxView.clicks(profile).throttleFirst(2, TimeUnit.SECONDS).subscribe {
-            ImagePicker.with(this)
-                .crop()
-                .compress(1024)
-                .maxResultSize(
-                    1080,
-                    1080
-                )
-                .start()
-        }
-
         RxView.clicks(login_submit_button).throttleFirst(2, TimeUnit.SECONDS).subscribe {
-
             if (et_hos_type.text.toString() == "Hospital") {
-
                 if (validateHospital()) {
                     createHospitalData()
                 } else {
-                    Toast.makeText(this, "Some thing went wrong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
 
             } else {
@@ -234,10 +171,30 @@ class Signup2Activity : BaseActivity() {
                     }
 
                 } else {
-                    Toast.makeText(this, "Some thing went wrong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+        RxView.clicks(ic_back).throttleFirst(2, TimeUnit.SECONDS).subscribe {
+            startActivity(this, AdminHomeActivity::class.java, true, -1)
+        }
+
+    }
+
+    private fun getType(completion: () -> Unit) {
+
+        pBar(1)
+        if (type == "Hospital") {
+            et_hos_type.setText(type)
+            hospital.visibility = View.VISIBLE
+            user.visibility = View.GONE
+        } else {
+            et_type.setText(type)
+            user.visibility = View.VISIBLE
+            hospital.visibility = View.GONE
+        }
+        completion()
     }
 
     private fun validateHospital(): Boolean {
@@ -320,40 +277,6 @@ class Signup2Activity : BaseActivity() {
 
     }
 
-    private fun createUser(type: String) {
-        var Vemail = et_email.text.toString().trim()
-        var Vpass = et_create_password.text.toString().trim()
-        pBar(1)
-
-        Log.d("name", " email: $Vemail pass: $Vpass")
-        auth.createUserWithEmailAndPassword(Vemail, Vpass)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.d(ContentValues.TAG, "createUserWithEmail:success")
-                    Toast.makeText(
-                        baseContext, "Authentication Pass",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    if (isImageUploaded) {
-                        uploadUserData(true, type)
-
-                    } else {
-                        uploadUserData(false, type)
-                    }
-
-
-                } else {
-                    pBar(0)
-                    Log.w("task", "createUserWithEmail:failure", task.exception?.cause)
-                    warningToast("Something Went Wrong")
-
-                }
-            }
-            .addOnFailureListener {
-                pBar(0)
-            }
-    }
-
     private fun createHospitalData() {
         var Vemail = et_hospital_email.text.toString().trim()
         var Vpass = et_hospital_password.text.toString().trim()
@@ -410,44 +333,11 @@ class Signup2Activity : BaseActivity() {
                 .addOnSuccessListener {
 
                     pBar(0)
-                    startActivity(this, HospitalHomeActivity::class.java, true, 1)
-                    Toast.makeText(this, "Thank You To Join Our Community", Toast.LENGTH_SHORT)
-                        .show()
+                    apiToast("Account Created Successfully") {
+                        startActivity(this, AdminHomeActivity::class.java, true, -1)
+                    }
                 }
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (resultCode) {
-            Activity.RESULT_OK -> {
-                //Image Uri will not be null for RESULT_OK
-                val fileUri = data?.data
-                val bitmap = MediaStore.Images.Media.getBitmap(
-                    contentResolver,
-                    fileUri
-                )
-                imageViewAnimatedChange(
-                    profile,
-                    bitmap
-                )
-                isPictureUploaded = true
-
-                profileImage = data?.data?.let { contentResolver.openInputStream(it) }
-            }
-            ImagePicker.RESULT_ERROR -> {
-                errorToast(ImagePicker.getError(data))
-            }
-            else -> {
-                errorToast("Task Cancelled")
-            }
-        }
-    }
-
-    private fun initTabLayout() {
-        tab_layout.addTab(tab_layout.newTab().setText("User"))
-        tab_layout.addTab(tab_layout.newTab().setText("Hospital"))
     }
 
     private fun validate(): Boolean {
@@ -617,7 +507,34 @@ class Signup2Activity : BaseActivity() {
         return true
     }
 
-    private fun uploadUserData(isPictureUploaded: Boolean?, type: String) {
+    private fun createUser(type: String) {
+        var Vemail = et_email.text.toString().trim()
+        var Vpass = et_create_password.text.toString().trim()
+        pBar(1)
+
+        Log.d("name", " email: $Vemail pass: $Vpass")
+        auth.createUserWithEmailAndPassword(Vemail, Vpass)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Log.d(ContentValues.TAG, "createUserWithEmail:success")
+                    Toast.makeText(
+                        baseContext, "Authentication Pass",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    uploadUserData(type)
+                } else {
+                    pBar(0)
+                    Log.w("task", "createUserWithEmail:failure", task.exception?.cause)
+                    warningToast("Something Went Wrong")
+
+                }
+            }
+            .addOnFailureListener {
+                pBar(0)
+            }
+    }
+
+    private fun uploadUserData(type: String) {
 
 
         Log.d("function", "Func:1")
@@ -669,16 +586,15 @@ class Signup2Activity : BaseActivity() {
 
             userRef.setValue(userMap).addOnSuccessListener {
 
-                if (isPictureUploaded == true) {
-                    uploadImage(profileImage, userUid.toString(), "profileImages", type)
-                } else {
-                    pBar(0)
-                    if (vType == "Donor") {
-                        startActivity(this, DonarHomeActivity::class.java, true, 1)
-                    } else {
-                        startActivity(this, AcceptorHomeActivity::class.java, true, 1)
+                pBar(0)
+                if (vType == "Donor") {
+                    apiToast("Account Created Successfully") {
+                        startActivity(this, AdminHomeActivity::class.java, true, -1)
                     }
-
+                } else {
+                    apiToast("Account Created Successfully") {
+                        startActivity(this, AdminHomeActivity::class.java, true, -1)
+                    }
                 }
 
 
@@ -691,56 +607,4 @@ class Signup2Activity : BaseActivity() {
 
     }
 
-    private fun uploadImage(
-        file: InputStream?,
-        fileName: String,
-        folderName: String,
-        type: String
-    ) {
-
-        pBar(1)
-        Toast.makeText(this, "Please wait while creating your profile...", Toast.LENGTH_LONG).show()
-        var usersStorageRef =
-            storageRef.child("users").child(folderName).child(userUid.toString())
-        pBar(1)
-
-        var uploadTask = usersStorageRef.putStream(file!!)
-        val urlTask = uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                }
-            }
-            usersStorageRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                profImageLink = downloadUri.toString()
-                Firebase.auth.currentUser?.let { it2 ->
-                    //     databaseReference
-                    FirebaseDatabase.getInstance().reference.child(type).child(it2.uid)
-                        .child("profileImage")
-                        .setValue(downloadUri.toString()).addOnSuccessListener {
-                            isImageUploaded = true
-                            pBar(0)
-                            if (type == "Donor") {
-                                startActivity(this, DonarHomeActivity::class.java, true, 1)
-                            } else {
-                                startActivity(this, AcceptorHomeActivity::class.java, true, 1)
-                            }
-
-                        }
-
-                        .addOnFailureListener {
-                            Log.d("failure", it.localizedMessage)
-                            pBar(0)
-
-                        }
-                }
-            } else {
-                pBar(0)
-            }
-        }
-
-    }
 }

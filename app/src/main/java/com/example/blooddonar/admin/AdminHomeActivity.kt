@@ -2,18 +2,16 @@ package com.example.blooddonar.admin
 
 import android.annotation.SuppressLint
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import com.example.blooddonar.R
 import com.example.blooddonar.base.BaseActivity
-import com.example.blooddonar.constants.acceptorRequirements
 import com.example.blooddonar.constants.acceptors
 import com.example.blooddonar.constants.users
-import com.example.blooddonar.donar.AcceptorAdapter
 import com.example.blooddonar.models.*
 import com.example.blooddonar.sharedpref.MySharedPreference
 import com.example.blooddonar.start.LoginActivity2
@@ -30,9 +28,10 @@ import kotlinx.android.synthetic.main.activity_signup2.*
 import java.util.concurrent.TimeUnit
 
 class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
-    AdminHospitalModel.OnHospitalClick, AdminDonorAdapter.OnDonarClick {
+    AdminHospitalAdapter.OnHospitalClick, AdminDonorAdapter.OnDonarClick {
 
     private lateinit var database: DatabaseReference
+    var position = ""
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +53,7 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
 
         getAcceptors {
             pBar(0)
+            add_user_btn.text = "Add Acceptor"
         }
 
     }
@@ -125,7 +125,7 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
                     }
 
                     hospitals.adapter =
-                        AdminHospitalModel(
+                        AdminHospitalAdapter(
                             this@AdminHomeActivity,
                             this@AdminHomeActivity,
                         )
@@ -157,10 +157,10 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
 
                     for (i in snapshot.children) {
 
-                        var requirements = i.getValue(UserModel::class.java)
-                        Log.d("requirements", requirements.toString())
-                        if (requirements != null) {
-                            users.add(requirements)
+                        var donor = i.getValue(UserModel::class.java)
+                        Log.d("donor", donor.toString())
+                        if (donor != null) {
+                            users.add(donor)
 
                         }
                     }
@@ -189,6 +189,9 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
     private fun initListeners() {
         tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
+
+                position = tab?.position?.toString().toString()
+
                 when {
                     tab?.position ?: 0 == 0 -> {
                         getAcceptors {
@@ -234,6 +237,33 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
             startActivity(this, LoginActivity2::class.java, true, -1)
             FirebaseAuth.getInstance().signOut()
         }
+
+        RxView.clicks(add_user_btn).throttleFirst(2, TimeUnit.SECONDS).subscribe {
+
+            when (add_user_btn.text) {
+                "Add Acceptor" -> {
+                    startActivity(this,
+                    AdminAddUsersActivity::class.java,
+                    true,
+                    1,
+                    bundleOf(Pair("type","Acceptor")))
+                }
+                "Add Hospital" -> {
+                    startActivity(this,
+                        AdminAddUsersActivity::class.java,
+                        true,
+                        1,
+                        bundleOf(Pair("type","Hospital")))
+                }
+                "Add Donor" -> {
+                    startActivity(this,
+                        AdminAddUsersActivity::class.java,
+                        true,
+                        1,
+                        bundleOf(Pair("type","Donor")))
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -277,7 +307,14 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
     }
 
     override fun onAcceptorUpdateClick(position: Int) {
-        TODO("Not yet implemented")
+
+        startActivity(
+            this,
+            AdminUserUpdateActivity::class.java,
+            true,
+            1,
+            bundleOf(Pair("uid", acceptors[position].uid), Pair("type", acceptors[position].type))
+        )
     }
 
     override fun onAcceptorDeleteClick(position: Int) {
@@ -298,7 +335,13 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
     }
 
     override fun onHospitalUpdateClick(position: Int) {
-        TODO("Not yet implemented")
+        startActivity(
+            this,
+            UpdateHospitalActivity::class.java,
+            true,
+            1,
+            bundleOf(Pair("uid", com.example.blooddonar.constants.hospitals[position].uid))
+        )
     }
 
     override fun onHospitalDeleteClick(position: Int) {
@@ -317,7 +360,13 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
     }
 
     override fun onDonorUpdateClick(position: Int) {
-        TODO("Not yet implemented")
+        startActivity(
+            this,
+            AdminUserUpdateActivity::class.java,
+            true,
+            1,
+            bundleOf(Pair("uid", users[position].uid), Pair("type", users[position].type))
+        )
     }
 
     override fun onDonorDeleteClick(position: Int) {
@@ -334,4 +383,5 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
                 }
         }
     }
+
 }

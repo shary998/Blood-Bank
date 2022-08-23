@@ -15,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.activity_stock_management.*
 import java.util.HashMap
+import java.util.concurrent.TimeUnit
 
 class StockManagementActivity : BaseActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
@@ -34,8 +35,16 @@ class StockManagementActivity : BaseActivity() {
         getData {
             pBar(0)
             changeInventory()
+            initListeners()
         }
+    }
 
+    @SuppressLint("CheckResult")
+    private fun initListeners() {
+
+        RxView.clicks(back).throttleFirst(2, TimeUnit.SECONDS).subscribe {
+            startActivity(this, HospitalHomeActivity::class.java, true, -1)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -52,14 +61,27 @@ class StockManagementActivity : BaseActivity() {
             .get()
             .addOnSuccessListener {
 
-                a_counter.setText(it.child("aPos").value.toString() + " " + "Bags")
-                a_neg_counter.setText(it.child("aNeg").value.toString() + " " + "Bags")
-                b_counter.setText(it.child("bPos").value.toString() + " " + "Bags")
-                b_neg_counter.setText(it.child("bNeg").value.toString() + " " + "Bags")
-                o_counter.setText(it.child("oPos").value.toString() + " " + "Bags")
-                o_neg_counter.setText(it.child("oNeg").value.toString() + " " + "Bags")
-                ab_counter.setText(it.child("abPos").value.toString() + " " + "Bags")
-                ab_neg_counter.setText(it.child("abNeg").value.toString() + " " + "Bags")
+                if (it.exists()) {
+                    a_counter.setText(it.child("aPos").value.toString() + " " + "Bags")
+                    a_neg_counter.setText(it.child("aNeg").value.toString() + " " + "Bags")
+                    b_counter.setText(it.child("bPos").value.toString() + " " + "Bags")
+                    b_neg_counter.setText(it.child("bNeg").value.toString() + " " + "Bags")
+                    o_counter.setText(it.child("oPos").value.toString() + " " + "Bags")
+                    o_neg_counter.setText(it.child("oNeg").value.toString() + " " + "Bags")
+                    ab_counter.setText(it.child("abPos").value.toString() + " " + "Bags")
+                    ab_neg_counter.setText(it.child("abNeg").value.toString() + " " + "Bags")
+
+                } else {
+                    a_counter.setText("0" + " " + "Bags")
+                    a_neg_counter.setText("0" + " " + "Bags")
+                    b_counter.setText("0" + " " + "Bags")
+                    b_neg_counter.setText("0" + " " + "Bags")
+                    o_counter.setText("0" + " " + "Bags")
+                    o_neg_counter.setText("0" + " " + "Bags")
+                    ab_counter.setText("0" + " " + "Bags")
+                    ab_neg_counter.setText("0" + " " + "Bags")
+                }
+
 
                 completion()
             }

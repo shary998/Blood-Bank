@@ -46,6 +46,7 @@ import com.google.firebase.firestore.GeoPoint
 import java.io.IOException
 import com.google.type.LatLng
 import com.skydoves.powermenu.PowerMenuItem
+import kotlinx.android.synthetic.main.activity_donar_profile.*
 import java.util.HashMap
 
 
@@ -73,18 +74,18 @@ class AcceptorHomeActivity : BaseActivity(),
         setContentView(R.layout.activity_acceptor_home)
 
 
-        pBar(1)
-        getData {
-            pBar(0)
-        }
 
         pBar(1)
-        getDonors {
-            pBar(0)
+        getData {
+            getDonors {
+                pBar(0)
+                initTabLayout()
+                initListeners()
+            }
+
         }
-        initTabLayout()
-        initListeners()
         userId = Firebase.auth.currentUser!!.uid
+
     }
 
 
@@ -191,6 +192,18 @@ class AcceptorHomeActivity : BaseActivity(),
                     if (it.exists()) {
                         city = it.child("city").value.toString()
 
+                        val circularProgressDrawable = CircularProgressDrawable(this)
+                        circularProgressDrawable.centerRadius = 25f
+                        circularProgressDrawable.start()
+
+                        if (it.child("profileImage").value == null) {
+                            ic_profile.setImageResource(R.drawable.ic_user)
+                        } else {
+                            Glide.with(this).load(it.child("profileImage").value)
+                                .placeholder(circularProgressDrawable)
+                                .into(ic_profile)
+                        }
+
                         if (MySharedPreference(this).getAcceptorObject() == null) {
                             MySharedPreference(this).saveAcceptorObject(
                                 AcceptorsModel(
@@ -234,26 +247,30 @@ class AcceptorHomeActivity : BaseActivity(),
     private fun initListeners() {
         acc_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab?.position ?: 0 == 0) {
-                    getDonors {
-                        pBar(0)
-                        donor.visibility = View.VISIBLE
-                        hospital_rec.visibility = View.GONE
-                        req.visibility = View.GONE
-                    }
+                when {
+                    tab?.position ?: 0 == 0 -> {
+                        getDonors {
+                            pBar(0)
+                            donor.visibility = View.VISIBLE
+                            hospital_rec.visibility = View.GONE
+                            req.visibility = View.GONE
+                        }
 
-                } else if (tab?.position ?: 0 == 1) {
-                    getHospitals {
-                        pBar(0)
-                        hospital_rec.visibility = View.VISIBLE
+                    }
+                    tab?.position ?: 0 == 1 -> {
+                        getHospitals {
+                            pBar(0)
+                            hospital_rec.visibility = View.VISIBLE
+                            donor.visibility = View.GONE
+                            req.visibility = View.GONE
+                        }
+
+                    }
+                    else -> {
+                        req.visibility = View.VISIBLE
                         donor.visibility = View.GONE
-                        req.visibility = View.GONE
+                        hospital_rec.visibility = View.GONE
                     }
-
-                } else {
-                    req.visibility = View.VISIBLE
-                    donor.visibility = View.GONE
-                    hospital_rec.visibility = View.GONE
                 }
             }
 
@@ -502,5 +519,15 @@ class AcceptorHomeActivity : BaseActivity(),
         et_hospital.text = null
         et_city_form.text = null
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getDonors {
+            pBar(0)
+            donor.visibility = View.VISIBLE
+            hospital_rec.visibility = View.GONE
+            req.visibility = View.GONE
+        }
     }
 }

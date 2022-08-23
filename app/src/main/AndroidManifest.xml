@@ -9,11 +9,20 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodDonar">
+        <activity
+            android:name=".admin.AdminAddUsersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.UpdateHospitalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminUserUpdateActivity"
+            android:exported="false" />
         <activity
             android:name=".admin.AdminHomeActivity"
             android:exported="false" />

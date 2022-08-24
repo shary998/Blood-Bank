@@ -64,183 +64,287 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gif"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_logo_gif"
-                app:layout_constraintDimensionRatio="3:1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/Base.Widget.Design.TabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@+id/gif">
+                android:background="@drawable/tab_back"
+                android:padding="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorGravity="bottom"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextAppearance="@style/tab_text"
+                app:tabTextColor="@color/black"
+                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
-                <RelativeLayout
-                    android:id="@+id/til_blood"
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:elevation="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/blood"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/form"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Blood Group"
-                        android:textColorHint="#727272"
-                        app:boxBackgroundMode="outline"
-                        app:boxCornerRadiusBottomEnd="10dp"
-                        app:boxCornerRadiusBottomStart="10dp"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxStrokeColor="@color/selector"
-                        app:boxStrokeWidth="1dp"
-                        app:hintTextColor="#727272">
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_blood"
-                            style="@style/edit_text_2"
-                            android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:textSize="14sp" />
+                        <pl.droidsonroids.gif.GifImageView
+                            android:id="@+id/gif"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_logo_gif"
+                            app:layout_constraintDimensionRatio="3:1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.4" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <RelativeLayout
+                            android:id="@+id/til_blood"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            app:layout_constraintTop_toBottomOf="@+id/gif">
 
-                    <View
-                        android:id="@+id/cont_blood"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/blood"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Blood Group"
+                                android:textColorHint="#727272"
+                                app:boxBackgroundMode="outline"
+                                app:boxCornerRadiusBottomEnd="10dp"
+                                app:boxCornerRadiusBottomStart="10dp"
+                                app:boxCornerRadiusTopEnd="10dp"
+                                app:boxCornerRadiusTopStart="10dp"
+                                app:boxStrokeColor="@color/selector"
+                                app:boxStrokeWidth="1dp"
+                                app:hintTextColor="#727272">
 
-                </RelativeLayout>
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_blood"
+                                    style="@style/edit_text_2"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:textSize="14sp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <View
+                                android:id="@+id/cont_blood"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
 
 
-                <RelativeLayout
-                    android:id="@+id/til_req"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintTop_toBottomOf="@+id/til_blood">
+                        <RelativeLayout
+                            android:id="@+id/til_req"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            app:layout_constraintTop_toBottomOf="@+id/til_blood">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_required"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_required"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Required"
+                                android:textColorHint="#727272"
+                                app:boxBackgroundMode="outline"
+                                app:boxCornerRadiusBottomEnd="10dp"
+                                app:boxCornerRadiusBottomStart="10dp"
+                                app:boxCornerRadiusTopEnd="10dp"
+                                app:boxCornerRadiusTopStart="10dp"
+                                app:boxStrokeColor="@color/selector"
+                                app:boxStrokeWidth="1dp"
+                                app:hintTextColor="#727272">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_req"
+                                    style="@style/edit_text_2"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:textSize="14sp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <View
+                                android:id="@+id/cont_req"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_hospital"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:hint="Hospital Name"
+                            android:textColorHint="#727272"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxStrokeColor="@color/selector"
+                            app:boxStrokeWidth="1dp"
+                            app:hintTextColor="#727272"
+                            app:layout_constraintTop_toBottomOf="@+id/til_req">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_hospital"
+                                style="@style/edit_text_2"
+                                android:focusable="false"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_city"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:hint="City"
+                            android:textColorHint="#727272"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxStrokeColor="@color/selector"
+                            app:boxStrokeWidth="1dp"
+                            app:hintTextColor="#727272"
+                            app:layout_constraintTop_toBottomOf="@+id/til_hospital">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_city"
+                                style="@style/edit_text_2"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_bags"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:hint="Required Bags"
+                            android:textColorHint="#727272"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxStrokeColor="@color/selector"
+                            app:boxStrokeWidth="1dp"
+                            app:hintTextColor="#727272"
+                            app:layout_constraintTop_toBottomOf="@+id/til_city">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_bags"
+                                style="@style/edit_text_2"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/login_submit"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/btn_login"
+                            android:text="Submit"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/til_bags" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/data"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Required"
-                        android:textColorHint="#727272"
-                        app:boxBackgroundMode="outline"
-                        app:boxCornerRadiusBottomEnd="10dp"
-                        app:boxCornerRadiusBottomStart="10dp"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxStrokeColor="@color/selector"
-                        app:boxStrokeWidth="1dp"
-                        app:hintTextColor="#727272">
+                        android:visibility="gone"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_req"
-                            style="@style/edit_text_2"
-                            android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:textSize="14sp" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:id="@+id/noData"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No Data Found"
+                            android:textColor="@color/red"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <View
-                        android:id="@+id/cont_req"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/required_inventory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:listitem="@layout/required_inventory_hospital" />
 
-                </RelativeLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_hospital"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:hint="Hospital Name"
-                    android:textColorHint="#727272"
-                    app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusBottomEnd="10dp"
-                    app:boxCornerRadiusBottomStart="10dp"
-                    app:boxCornerRadiusTopEnd="10dp"
-                    app:boxCornerRadiusTopStart="10dp"
-                    app:boxStrokeColor="@color/selector"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextColor="#727272"
-                    app:layout_constraintTop_toBottomOf="@+id/til_req">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_hospital"
-                        style="@style/edit_text_2"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_city"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:hint="City"
-                    android:textColorHint="#727272"
-                    app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusBottomEnd="10dp"
-                    app:boxCornerRadiusBottomStart="10dp"
-                    app:boxCornerRadiusTopEnd="10dp"
-                    app:boxCornerRadiusTopStart="10dp"
-                    app:boxStrokeColor="@color/selector"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextColor="#727272"
-                    app:layout_constraintTop_toBottomOf="@+id/til_hospital">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_city"
-                        style="@style/edit_text_2"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/login_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/btn_login"
-                    android:text="Submit"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/til_city" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -350,7 +350,7 @@ class AdminHomeActivity : BaseActivity(), AdminAcceptorAdapter.OnPositionClick,
             FirebaseDatabase
                 .getInstance()
                 .reference
-                .child("hospital")
+                .child("hospitals")
                 .child(com.example.blooddonar.constants.hospitals[position].uid)
                 .removeValue()
                 .addOnSuccessListener {

@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodDonar">
         <activity
+            android:name=".donar.HospitalRequirementsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hospital.RequiredInventoryUpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.AdminAddUsersActivity"
             android:exported="false" />
         <activity

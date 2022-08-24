@@ -44,6 +44,19 @@
         <entry key="..\:/BloodDonar/app/src/main/res/layout/hospital_availability.xml" value="0.28940217391304346" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/hospital_recycler.xml" value="0.2930253623188406" />
         <entry key="..\:/BloodDonar/app/src/main/res/layout/signup2.xml" value="0.29322916666666665" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/acceptor_recycler.xml" value="0.25905797101449274" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_acceptor_home.xml" value="0.14260385005065856" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_donar_home.xml" value="0.14260385005065856" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_hopital_requirments.xml" value="0.2694746376811594" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_hospital_home.xml" value="0.14260385005065856" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_required_blood.xml" value="0.25" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_required_inventory_update.xml" value="0.25905797101449274" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_signup2.xml" value="0.22" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/activity_stock_management.xml" value="0.25905797101449274" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/hospital_availability.xml" value="0.2694746376811594" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/hospital_rec.xml" value="0.2694746376811594" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/hospital_recycler.xml" value="0.2694746376811594" />
+        <entry key="..\:/GIT/Blood-Bank/app/src/main/res/layout/required_inventory_hospital.xml" value="0.25905797101449274" />
       </map>
     </option>
   </component>

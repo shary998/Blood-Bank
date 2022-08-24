@@ -11,6 +11,8 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.blooddonar.R
@@ -28,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import com.ibotta.android.support.pickerdialogs.SupportedDatePickerDialog
+import com.ibotta.android.support.pickerdialogs.SupportedTimePickerDialog
 import com.jakewharton.rxbinding2.view.RxView
 import com.skydoves.powermenu.PowerMenuItem
 import kotlinx.android.synthetic.main.activity_signup2.*
@@ -68,6 +72,7 @@ class Signup2Activity : BaseActivity() {
         window.statusBarColor = getColor(R.color.transparent)
         window.navigationBarColor = getColor(R.color.black)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_signup2)
 
 
@@ -78,6 +83,7 @@ class Signup2Activity : BaseActivity() {
 
         initTabLayout()
         initListeners()
+
 
     }
 
@@ -237,6 +243,10 @@ class Signup2Activity : BaseActivity() {
                     Toast.makeText(this, "Some thing went wrong", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        RxView.clicks(cont_dd).throttleFirst(2, TimeUnit.SECONDS).subscribe {
+
         }
     }
 
@@ -743,4 +753,6 @@ class Signup2Activity : BaseActivity() {
         }
 
     }
+
+
 }

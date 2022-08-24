@@ -36,7 +36,7 @@ class UpdateHospitalActivity : BaseActivity() {
 
 
         uid = intent?.extras?.getString("uid") ?: "0"
-        mDatabase = FirebaseDatabase.getInstance().reference.child("hospital")
+        mDatabase = FirebaseDatabase.getInstance().reference.child("hospitals")
 
         getData {
             pBar(0)
@@ -67,7 +67,7 @@ class UpdateHospitalActivity : BaseActivity() {
         FirebaseDatabase
             .getInstance()
             .reference
-            .child("hospital")
+            .child("hospitals")
             .child(uid.trim())
             .get()
             .addOnSuccessListener {

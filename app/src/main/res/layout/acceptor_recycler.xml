@@ -183,8 +183,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
         <LinearLayout
             android:id="@+id/action_buttons"
             android:layout_width="match_parent"

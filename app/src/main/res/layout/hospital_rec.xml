@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="10dp"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="5dp"
+    app:cardElevation="5dp"
     app:strokeColor="@color/red"
-    app:strokeWidth="1dp">
+    app:strokeWidth="1dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +17,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginVertical="10dp">
 
 
             <TextView
@@ -56,14 +60,45 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+            <TextView
+                android:id="@+id/req_blood"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/iv_blood"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_blood"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_blood"
+                app:layout_constraintRight_toRightOf="@+id/iv_blood"
+                android:layout_marginHorizontal="2dp"
+                android:gravity="center"
+                android:text="AB+"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/tv_contact"
+                android:id="@+id/tv_req"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="@+id/iv_blood"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_blood"
+                app:layout_constraintTop_toBottomOf="@+id/iv_blood" />
+
+
+
+
+            <TextView
+                android:id="@+id/tv_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Contact No:"
+                android:text="Quantity:"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -78,9 +113,9 @@
                 android:text="0303 xxxxxxx"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_contact"
-                app:layout_constraintLeft_toRightOf="@+id/tv_contact"
-                app:layout_constraintTop_toTopOf="@+id/tv_contact" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_quantity"
+                app:layout_constraintLeft_toRightOf="@+id/tv_quantity"
+                app:layout_constraintTop_toTopOf="@+id/tv_quantity" />
 
 
             <TextView
@@ -94,7 +129,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_contact" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_quantity" />
 
             <TextView
                 android:id="@+id/tv_hos_name"
@@ -115,67 +150,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/action_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/main">
-
-            <RelativeLayout
-                android:id="@+id/cont_call"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_red">
-
-                <TextView
-                    android:id="@+id/tv_call"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Call"
-                    android:textColor="@color/white" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/cont_navigate"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/navigate_btn">
-
-                <TextView
-                    android:id="@+id/tv_navigate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Navigate"
-                    android:textColor="@color/red" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/cont_req"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/blood_btn">
-
-                <TextView
-                    android:id="@+id/tv_req"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Requirements"
-                    android:textColor="@color/white" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

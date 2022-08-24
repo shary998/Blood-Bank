@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.blooddonar.R
+import com.example.blooddonar.constants.hospitals
 import com.example.blooddonar.constants.hospitalsRequirements
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.hospital_recycler.view.*
@@ -29,25 +30,26 @@ class HospitalsAdapter(
         )
     }
 
-    override fun getItemCount(): Int = hospitalsRequirements.size
+    override fun getItemCount(): Int = hospitals.size
 
     @SuppressLint("CheckResult")
     override fun onBindViewHolder(holder: HospitalsAdapter, position: Int) {
-        val item = hospitalsRequirements[position]
+        val item = hospitals[position]
 
         holder.itemView.apply {
 
-            tv_hospital_name.text = item.hospital.capitalize()
+            tv_hospital_name.text = item.name.capitalize()
             tv_number.text = item.phoneNumber
             tv_hos_name.text = item.address.capitalize()
-            tv_blood_name.text = item.blood.capitalize()
-            tv_req.text = item.req
 
             RxView.clicks(cont_call).throttleFirst(2,TimeUnit.SECONDS).subscribe{
                 listener.onHospitalCallClick(position)
             }
             RxView.clicks(cont_navigate).throttleFirst(2,TimeUnit.SECONDS).subscribe{
                 listener.onHospitalNavigateClick(position)
+            }
+            RxView.clicks(cont_req).throttleFirst(2,TimeUnit.SECONDS).subscribe {
+                listener.onReqClick(position)
             }
 
         }
@@ -56,5 +58,6 @@ class HospitalsAdapter(
     interface onHospitalClick {
         fun onHospitalCallClick(position: Int)
         fun onHospitalNavigateClick(position: Int)
+        fun onReqClick(position: Int)
     }
 }

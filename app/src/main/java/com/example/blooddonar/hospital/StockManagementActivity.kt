@@ -57,34 +57,50 @@ class StockManagementActivity : BaseActivity() {
             .reference
             .child("hospitals")
             .child(Firebase.auth.currentUser?.uid.toString())
-            .child("inventory")
             .get()
             .addOnSuccessListener {
+                hospital_name.text = it.child("name").value.toString().capitalize()
 
-                if (it.exists()) {
-                    a_counter.setText(it.child("aPos").value.toString() + " " + "Bags")
-                    a_neg_counter.setText(it.child("aNeg").value.toString() + " " + "Bags")
-                    b_counter.setText(it.child("bPos").value.toString() + " " + "Bags")
-                    b_neg_counter.setText(it.child("bNeg").value.toString() + " " + "Bags")
-                    o_counter.setText(it.child("oPos").value.toString() + " " + "Bags")
-                    o_neg_counter.setText(it.child("oNeg").value.toString() + " " + "Bags")
-                    ab_counter.setText(it.child("abPos").value.toString() + " " + "Bags")
-                    ab_neg_counter.setText(it.child("abNeg").value.toString() + " " + "Bags")
-
-                } else {
-                    a_counter.setText("0" + " " + "Bags")
-                    a_neg_counter.setText("0" + " " + "Bags")
-                    b_counter.setText("0" + " " + "Bags")
-                    b_neg_counter.setText("0" + " " + "Bags")
-                    o_counter.setText("0" + " " + "Bags")
-                    o_neg_counter.setText("0" + " " + "Bags")
-                    ab_counter.setText("0" + " " + "Bags")
-                    ab_neg_counter.setText("0" + " " + "Bags")
-                }
+                FirebaseDatabase
+                    .getInstance()
+                    .reference
+                    .child("hospitals")
+                    .child(Firebase.auth.currentUser?.uid.toString())
+                    .child("inventory")
+                    .get()
+                    .addOnSuccessListener {
 
 
-                completion()
+                        if (it.exists()) {
+                            a_counter.setText(it.child("aPos").value.toString() + " " + "Bags")
+                            a_neg_counter.setText(it.child("aNeg").value.toString() + " " + "Bags")
+                            b_counter.setText(it.child("bPos").value.toString() + " " + "Bags")
+                            b_neg_counter.setText(it.child("bNeg").value.toString() + " " + "Bags")
+                            o_counter.setText(it.child("oPos").value.toString() + " " + "Bags")
+                            o_neg_counter.setText(it.child("oNeg").value.toString() + " " + "Bags")
+                            ab_counter.setText(it.child("abPos").value.toString() + " " + "Bags")
+                            ab_neg_counter.setText(it.child("abNeg").value.toString() + " " + "Bags")
+
+                        } else {
+                            a_counter.setText("0" + " " + "Bags")
+                            a_neg_counter.setText("0" + " " + "Bags")
+                            b_counter.setText("0" + " " + "Bags")
+                            b_neg_counter.setText("0" + " " + "Bags")
+                            o_counter.setText("0" + " " + "Bags")
+                            o_neg_counter.setText("0" + " " + "Bags")
+                            ab_counter.setText("0" + " " + "Bags")
+                            ab_neg_counter.setText("0" + " " + "Bags")
+                        }
+
+
+                        completion()
+                    }
             }
+
+
+
+
+
     }
 
     @SuppressLint("CheckResult")

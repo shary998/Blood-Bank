@@ -2,7 +2,7 @@ package com.example.blooddonar.models
 
 import com.google.gson.annotations.SerializedName
 
-data class HospitalReqModel(
+data class RequiredStockModel(
     @SerializedName("address")
     var address: String = "",
     @SerializedName("bags")
@@ -13,6 +13,8 @@ data class HospitalReqModel(
     var city: String = "",
     @SerializedName("hospital")
     var hospital: String = "",
+    @SerializedName("name")
+    var name: String = "",
     @SerializedName("phoneNumber")
     var phoneNumber: String = "",
     @SerializedName("req")

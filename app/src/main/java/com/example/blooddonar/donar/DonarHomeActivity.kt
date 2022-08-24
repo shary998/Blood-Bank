@@ -12,15 +12,13 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.blooddonar.R
 import com.example.blooddonar.base.BaseActivity
 import com.example.blooddonar.constants.acceptorRequirements
 import com.example.blooddonar.constants.hospitals
-import com.example.blooddonar.constants.hospitalsRequirements
-import com.example.blooddonar.constants.users
-import com.example.blooddonar.hospital.DonorAdapter
 import com.example.blooddonar.models.*
 import com.example.blooddonar.sharedpref.MySharedPreference
 import com.example.blooddonar.start.LoginActivity2
@@ -36,9 +34,7 @@ import kotlinx.android.synthetic.main.activity_donar_home.active
 import kotlinx.android.synthetic.main.activity_donar_home.disable
 import kotlinx.android.synthetic.main.activity_donar_home.ic_profile
 import kotlinx.android.synthetic.main.activity_signup2.*
-import kotlinx.android.synthetic.main.activity_signup2.hospital
 import kotlinx.android.synthetic.main.activity_signup2.tab_layout
-import kotlinx.android.synthetic.main.activity_signup2.user
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -207,24 +203,23 @@ class DonarHomeActivity : BaseActivity(), AcceptorAdapter.OnPositionClick,
     private fun getHospitalRequirements(completion: () -> Unit) {
         pBar(1)
         database = FirebaseDatabase.getInstance().reference
-            .child("Requirements")
-            .child("Hospitals")
+            .child("hospitals")
 
         val userData = object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.N)
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
 
-                    hospitalsRequirements.clear()
+                    hospitals.clear()
 
                     for (i in snapshot.children) {
 
                         if (i.child("uid").value != userId && i.child("city").value == city) {
 
-                            var hosrequirements = i.getValue(HospitalReqModel::class.java)
+                            var hosrequirements = i.getValue(HospitalDataModel::class.java)
                             Log.d("hosrequirements", hosrequirements.toString())
                             if (hosrequirements != null) {
-                                hospitalsRequirements.add(hosrequirements)
+                                hospitals.add(hosrequirements)
                             }
                         }
                     }
@@ -350,7 +345,7 @@ class DonarHomeActivity : BaseActivity(), AcceptorAdapter.OnPositionClick,
     }
 
     override fun onHospitalCallClick(position: Int) {
-        val number = hospitalsRequirements[position].phoneNumber
+        val number = hospitals[position].phoneNumber
 
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
         startActivity(intent)
@@ -362,7 +357,7 @@ class DonarHomeActivity : BaseActivity(), AcceptorAdapter.OnPositionClick,
         try {
             val adresses =
                 coder.getFromLocationName(
-                    hospitalsRequirements[position].address,
+                    hospitals[position].address,
                     50
                 ) as ArrayList<Address>
             for (add in adresses) {
@@ -377,6 +372,18 @@ class DonarHomeActivity : BaseActivity(), AcceptorAdapter.OnPositionClick,
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
+
+    override fun onReqClick(position: Int) {
+
+        startActivity(
+            this,
+            HospitalRequirementsActivity::class.java,
+            false,
+            1,
+            bundleOf(Pair("uid", hospitals[position].uid), Pair("name", hospitals[position].name))
+        )
+
     }
 
 

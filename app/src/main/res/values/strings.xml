@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Blood Donar</string>
     <string name="register">Don\'t have an account?</string>
+    <string name="date_format">MMM dd, yyyy</string>
+    <string name="time_format">HH: mm</string>
+    <string name="date_picker_row_title">%1$s</string>
+    <string name="time_picker_row_title">Time: %1$s</string>
 </resources>

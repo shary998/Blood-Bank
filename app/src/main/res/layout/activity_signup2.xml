@@ -14,7 +14,6 @@
         android:background="@drawable/signup_card"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -24,7 +23,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_signup"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_signup" />
-
 
     <TextView
         android:id="@+id/tv_signup"
@@ -39,7 +37,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -544,7 +541,7 @@
                                         android:id="@+id/et_city"
                                         style="@style/edit_text_2"
                                         android:imeOptions="actionNext"
-                                        android:inputType="textPersonName"
+                                        android:inputType="textCapSentences"
                                         android:textSize="14sp" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
@@ -762,7 +759,7 @@
                                         android:id="@+id/et_hospital_city"
                                         style="@style/edit_text_2"
                                         android:imeOptions="actionNext"
-                                        android:inputType="textPersonName"
+                                        android:inputType="textCapSentences"
                                         android:textSize="14sp" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
@@ -893,9 +890,6 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 
                 </androidx.core.widget.NestedScrollView>

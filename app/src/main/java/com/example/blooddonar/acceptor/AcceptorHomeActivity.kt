@@ -247,31 +247,27 @@ class AcceptorHomeActivity : BaseActivity(),
     private fun initListeners() {
         acc_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when {
-                    tab?.position ?: 0 == 0 -> {
-                        getDonors {
-                            pBar(0)
-                            donor.visibility = View.VISIBLE
-                            hospital_rec.visibility = View.GONE
-                            req.visibility = View.GONE
-                        }
 
-                    }
-                    tab?.position ?: 0 == 1 -> {
-                        getHospitals {
-                            pBar(0)
-                            hospital_rec.visibility = View.VISIBLE
-                            donor.visibility = View.GONE
-                            req.visibility = View.GONE
-                        }
-
-                    }
-                    else -> {
-                        req.visibility = View.VISIBLE
-                        donor.visibility = View.GONE
+                if (tab?.position ?: 0 == 0) {
+                    getDonors {
+                        pBar(0)
+                        donor.visibility = View.VISIBLE
                         hospital_rec.visibility = View.GONE
+                        req.visibility = View.GONE
                     }
+                } else if (tab?.position ?: 0 == 1) {
+                    getHospitals {
+                        pBar(0)
+                        hospital_rec.visibility = View.VISIBLE
+                        donor.visibility = View.GONE
+                        req.visibility = View.GONE
+                    }
+                } else {
+                    req.visibility = View.VISIBLE
+                    donor.visibility = View.GONE
+                    hospital_rec.visibility = View.GONE
                 }
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -459,7 +455,7 @@ class AcceptorHomeActivity : BaseActivity(),
             HospitalAvailabilityActivity::class.java,
             false,
             1,
-            bundleOf(Pair("uid", hospitals[position].uid))
+            bundleOf(Pair("uid", hospitals[position].uid), Pair("name", hospitals[position].name))
         )
 
     }

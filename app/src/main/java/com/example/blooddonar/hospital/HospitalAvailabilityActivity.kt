@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit
 class HospitalAvailabilityActivity : BaseActivity() {
 
     private var uid = ""
+    private var name = ""
     private lateinit var database: DatabaseReference
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -32,11 +33,13 @@ class HospitalAvailabilityActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hospital_availability)
 
-        uid =  intent?.extras?.getString("uid") ?: ""
+        uid = intent?.extras?.getString("uid") ?: ""
+        name = intent?.extras?.getString("name") ?: ""
 
 
         getData(uid) {
             pBar(0)
+            hospital_name.text = name.capitalize()
             initListeners()
         }
 
@@ -55,15 +58,29 @@ class HospitalAvailabilityActivity : BaseActivity() {
             .get()
             .addOnSuccessListener {
 
-                a_counter.text = it.child("aPos").value.toString() + " " + "Bags"
-                a_neg_counter.text = it.child("aNeg").value.toString() + " " + "Bags"
-                b_counter.text = it.child("bPos").value.toString() + " " + "Bags"
-                b_neg_counter.text = it.child("bNeg").value.toString() + " " + "Bags"
-                o_counter.text = it.child("oPos").value.toString() + " " + "Bags"
-                o_neg_counter.text = it.child("oNeg").value.toString() + " " + "Bags"
-                ab_counter.text = it.child("abPos").value.toString() + " " + "Bags"
-                ab_neg_counter.text = it.child("abNeg").value.toString() + " " + "Bags"
-                completion()
+                if (it.exists()) {
+                    a_counter.text = it.child("aPos").value.toString() + " " + "Bags"
+                    a_neg_counter.text = it.child("aNeg").value.toString() + " " + "Bags"
+                    b_counter.text = it.child("bPos").value.toString() + " " + "Bags"
+                    b_neg_counter.text = it.child("bNeg").value.toString() + " " + "Bags"
+                    o_counter.text = it.child("oPos").value.toString() + " " + "Bags"
+                    o_neg_counter.text = it.child("oNeg").value.toString() + " " + "Bags"
+                    ab_counter.text = it.child("abPos").value.toString() + " " + "Bags"
+                    ab_neg_counter.text = it.child("abNeg").value.toString() + " " + "Bags"
+                    completion()
+                } else {
+                    a_counter.text = "0 Bags"
+                    a_neg_counter.text = "0 Bags"
+                    b_counter.text = "0 Bags"
+                    b_neg_counter.text = "0 Bags"
+                    o_counter.text = "0 Bags"
+                    o_neg_counter.text = "0 Bags"
+                    ab_counter.text = "0 Bags"
+                    ab_neg_counter.text = "0 Bags"
+                    completion()
+                }
+
+
             }
 
     }
@@ -71,8 +88,12 @@ class HospitalAvailabilityActivity : BaseActivity() {
     @SuppressLint("CheckResult")
     private fun initListeners() {
         RxView.clicks(back).throttleFirst(2, TimeUnit.SECONDS).subscribe {
-
             startActivity(this, AcceptorHomeActivity::class.java, true, -1)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(this, AcceptorHomeActivity::class.java, true, -1)
     }
 }

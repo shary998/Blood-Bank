@@ -58,7 +58,7 @@ class StockManagementActivity : BaseActivity() {
             .child("hospitals")
             .child(Firebase.auth.currentUser?.uid.toString())
             .get()
-            .addOnSuccessListener {
+            .addOnSuccessListener { it ->
                 hospital_name.text = it.child("name").value.toString().capitalize()
 
                 FirebaseDatabase
@@ -72,16 +72,17 @@ class StockManagementActivity : BaseActivity() {
 
 
                         if (it.exists()) {
-                            a_counter.setText(it.child("aPos").value.toString() + " " + "Bags")
-                            a_neg_counter.setText(it.child("aNeg").value.toString() + " " + "Bags")
-                            b_counter.setText(it.child("bPos").value.toString() + " " + "Bags")
-                            b_neg_counter.setText(it.child("bNeg").value.toString() + " " + "Bags")
-                            o_counter.setText(it.child("oPos").value.toString() + " " + "Bags")
-                            o_neg_counter.setText(it.child("oNeg").value.toString() + " " + "Bags")
-                            ab_counter.setText(it.child("abPos").value.toString() + " " + "Bags")
-                            ab_neg_counter.setText(it.child("abNeg").value.toString() + " " + "Bags")
+                            a_counter.setText(it.child("aPos").value.toString())
+                            a_neg_counter.setText(it.child("aNeg").value.toString())
+                            b_counter.setText(it.child("bPos").value.toString())
+                            b_neg_counter.setText(it.child("bNeg").value.toString())
+                            o_counter.setText(it.child("oPos").value.toString())
+                            o_neg_counter.setText(it.child("oNeg").value.toString())
+                            ab_counter.setText(it.child("abPos").value.toString())
+                            ab_neg_counter.setText(it.child("abNeg").value.toString())
 
-                        } else {
+                        }
+                        else {
                             a_counter.setText("0" + " " + "Bags")
                             a_neg_counter.setText("0" + " " + "Bags")
                             b_counter.setText("0" + " " + "Bags")
@@ -91,7 +92,6 @@ class StockManagementActivity : BaseActivity() {
                             ab_counter.setText("0" + " " + "Bags")
                             ab_neg_counter.setText("0" + " " + "Bags")
                         }
-
 
                         completion()
                     }
